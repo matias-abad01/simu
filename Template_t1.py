@@ -121,17 +121,60 @@ print(ejercicio1([1,3,2,5,4,1,8], 5))
 
 # Ejercicio 2
 def ejercicio2(examenes: Pila[(str, int)]) -> Pila[str]:
-    # TODO: Implementar
-    pass
+    aux: Pila[(str, int)] = Pila()
+    temas2: Pila[(str, int)] = Pila()
+    nombres: Pila[str] = Pila()
+    res: Pila[str] = Pila()
+
+    while not examenes.empty():
+        aux.put(examenes.get())
+
+    while not aux.empty():
+        examen: tuple[str, int] = aux.get()
+
+        if examen[1] == 1:
+            nombres.put(examen[0])
+        else:
+            temas2.put(examen)
+
+    while not temas2.empty():
+        examenes.put(temas2.get())
+
+    while not nombres.empty():
+        res.put(nombres.get())
+
+    return res
 
 
 # Ejercicio 3
 def ejercicio3(A: list[list[int]]) -> None:
-    # TODO: Implementar
-    pass
+    fila: int = 0
+
+    while fila < len(A):
+        columna: int = 1
+        minimo: int = A[fila][0]
+
+        while columna < len(A[fila]):
+            if A[fila][columna] < minimo:
+                minimo = A[fila][columna]
+            columna += 1
+
+        A[fila].append(minimo)
+        fila += 1
 
 
 # Ejercicio 4
 def ejercicio4(eleccion1: dict[str, str], eleccion2: dict[str, str]) -> dict[str, int]:
-    # TODO: Implementar
-    pass
+    res: dict[str, int] = {}
+
+    for ciudadano in eleccion1.keys():
+        candidato1: str = eleccion1[ciudadano]
+        candidato2: str = eleccion2[ciudadano]
+
+        if candidato1 == candidato2:
+            if candidato1 in res:
+                res[candidato1] += 1
+            else:
+                res[candidato1] = 1
+
+    return res
